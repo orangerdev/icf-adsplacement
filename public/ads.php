@@ -76,6 +76,19 @@ class Ads
 		$this->ads_active	= ($this->ads['left']['active'] || $this->ads['right']['active']) ? true : false;
 	}
 
+	/**
+	 * Set css and js files
+	 * Hooked via action wp_enqueue_scripts, priority 999
+	 * @since 	1.0.0
+	 * @return 	void
+	 */
+	public function set_css_js_files()
+	{
+		if($this->ads_active) :
+			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/icf-ads-public.css', array(), $this->version, 'all' );
+		endif;
+	}
+
     /**
      * Display ads on footer
      * Hooked via action wp_footer, priority 999
@@ -84,6 +97,18 @@ class Ads
      */
     public function display_ads()
     {
+		if(false !== $this->ads_active) :
+			if($this->ads['left']['active']) :
+				$content 	= $this->ads['left']['content'];
+				$position 	= 'left';
+				require ICF_ADS_PATH.'public/partials/ads-content.php';
+			endif;
 
+			if($this->ads['right']['active']) :
+				$content 	= $this->ads['right']['content'];
+				$position 	= 'right';
+				require ICF_ADS_PATH.'public/partials/ads-content.php';
+			endif;
+		endif;
     }
 }

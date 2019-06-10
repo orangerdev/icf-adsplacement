@@ -2,3 +2,24 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+
+
+.icf-ads {
+    position: fixed;
+    top : 10vh;
+    z-index: 99999;
+}
+
+.icf-ads.left {
+    left : 0;
+}
+
+.icf-ads.right {
+    right : 0;
+}
+
+@media screen and (max-width:768px) {
+    .icf-ads {
+        display: none;
+    }
+}
