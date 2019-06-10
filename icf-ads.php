@@ -63,6 +63,7 @@ register_deactivation_hook( __FILE__, 'deactivate_icf_ads' );
  * admin-specific hooks, and public-facing site hooks.
  */
 require plugin_dir_path( __FILE__ ) . 'includes/class-icf-ads.php';
+require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 
 /**
  * Begins execution of the plugin.
