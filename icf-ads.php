@@ -66,6 +66,7 @@ register_deactivation_hook( __FILE__, 'deactivate_icf_ads' );
  */
 require plugin_dir_path( __FILE__ ) . 'includes/class-icf-ads.php';
 require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
+require plugin_dir_path( __FILE__ ) . 'library/plugin-update-checker/plugin-update-checker.php';
 
 /**
  * Begins execution of the plugin.
