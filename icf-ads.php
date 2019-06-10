@@ -99,3 +99,11 @@ if(!function_exists('__debug')) :
 endif;
 
 run_icf_ads();
+
+$update_checker = Puc_v4_Factory::buildUpdateChecker(
+	'https://github.com/orangerdev/icf-adsplacement',
+	__FILE__,
+	'icf-adsplacement'
+);
+
+$update_checker->setBranch('master');
