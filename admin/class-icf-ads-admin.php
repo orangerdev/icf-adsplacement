@@ -1,5 +1,8 @@
 <?php
 
+use Carbon_Fields\Container;
+use Carbon_Fields\Field;
+
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -100,4 +103,33 @@ class Icf_Ads_Admin {
 
 	}
 
+	/**
+	 * Load carbon fields
+	 * Hooked via action after_setup_theme, priority 1
+	 * @since 	1.0.0
+	 * @return  void
+	 */
+	public function load_carbon_fields()
+	{
+		\Carbon_Fields\Carbon_Fields::boot();
+	}
+
+	/**
+	 * Set plugin options
+	 * Hooked via action carbon_fields_register_fields, priority 1
+	 * @since 	1.0.0
+	 * @return	void
+	 */
+	public function setup_plugin_options()
+	{
+		Container::make('theme_options',	__('Ads Placement','icf-ads'))
+			->add_fields([
+				Field::make('checkbox',	'icf_ads_left_active',	__('Activate Left Ads','icf-ads'))
+					->set_option_value('yes'),
+				Field::make('rich_text','icf_ads_left_content',	__('Left Content','icf-ads')),
+				Field::make('checkbox',	'icf_ads_right_active',__('Activate Right Ads','icf-ads'))
+					->set_option_value('yes'),
+				Field::make('rich_text','icf_ads_right_content',	__('Right Content','icf-ads')),
+			]);
+	}
 }

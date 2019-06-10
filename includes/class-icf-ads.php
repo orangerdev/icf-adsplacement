@@ -121,6 +121,7 @@ class Icf_Ads {
 		 * side of the site.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-icf-ads-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/ads.php';
 
 		$this->loader = new Icf_Ads_Loader();
 
@@ -154,8 +155,10 @@ class Icf_Ads {
 
 		$plugin_admin = new Icf_Ads_Admin( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_enqueue_scripts', 		$plugin_admin, 'enqueue_styles' );
+		$this->loader->add_action( 'admin_enqueue_scripts', 		$plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'after_setup_theme',				$plugin_admin, 'load_carbon_fields',	1);
+		$this->loader->add_action( 'carbon_fields_register_fields',	$plugin_admin, 'setup_plugin_options', 	1);
 
 	}
 
@@ -172,6 +175,12 @@ class Icf_Ads {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+
+		$ads	= new ICF\Front\Ads( $this->get_plugin_name(), $this->get_version() );
+
+		$this->loader->add_action( 'template_redirect',		$ads, 	'get_setup',		999);
+		$this->loader->add_action( 'wp_enqueue_scripts',	$ads, 	'set_css_js_files',	999);
+		$this->loader->add_action( 'wp_footer',				$ads,	'display_ads',		999);
 
 	}
 
